@@ -1,0 +1,19 @@
+Downloading: "https://github.com/facebookresearch/deit/archive/main.zip" to /home/nfs/rsangers/.cache/torch/hub/main.zip
+Namespace(alpha=0.1, attention_normalize='local', attribute='safety', batch_size=32, comet=False, csv='votes/', cuda=True, cuda_id=0, dataset='/scratch/rsangers/placepulse', epoch=1, equal=False, finetune=True, logexp=False, lr=0.001, lr_decay=False, max_epochs=20, model='transformer', model_dir='models/', n_heads=1, n_layers=1, n_outputs=1, num_workers=4, pbar=False, premodel='deit', reg=False, resume=False, sgd=False, softmax=False, tag='', wd=0.0)
+Traceback (most recent call last):
+  File "train.py", line 171, in <module>
+    'deit':torch.hub.load('facebookresearch/deit:main', 'deit_base_patch16_224', pretrained=True)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/hub.py", line 370, in load
+    model = _load_local(repo_or_dir, model, *args, **kwargs)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/hub.py", line 396, in _load_local
+    hub_module = import_module(MODULE_HUBCONF, hubconf_path)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/hub.py", line 71, in import_module
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/nfs/rsangers/.cache/torch/hub/facebookresearch_deit_main/hubconf.py", line 3, in <module>
+    from models import *
+  File "/home/nfs/rsangers/.cache/torch/hub/facebookresearch_deit_main/models.py", line 7, in <module>
+    from timm.models.vision_transformer import VisionTransformer, _cfg
+ModuleNotFoundError: No module named 'timm'
+srun: error: insy11: task 0: Exited with exit code 1

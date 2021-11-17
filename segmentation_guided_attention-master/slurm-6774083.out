@@ -1,0 +1,142 @@
+Using cache found in /home/nfs/rsangers/.cache/torch/hub/facebookresearch_deit_main
+Downloading: "https://dl.fbaipublicfiles.com/deit/deit_base_patch16_224-b5f2ef4d.pth" to /home/nfs/rsangers/.cache/torch/hub/checkpoints/deit_base_patch16_224-b5f2ef4d.pth
+  0%|          | 0.00/330M [00:00<?, ?B/s]  0%|          | 56.0k/330M [00:00<20:19, 284kB/s]  0%|          | 128k/330M [00:00<17:44, 325kB/s]   0%|          | 296k/330M [00:00<13:55, 414kB/s]  0%|          | 600k/330M [00:00<10:34, 545kB/s]  0%|          | 1.20M/330M [00:00<07:47, 738kB/s]  1%|          | 2.20M/330M [00:00<05:40, 1.01MB/s]  1%|          | 3.20M/330M [00:01<04:12, 1.36MB/s]  1%|▏         | 4.20M/330M [00:01<03:10, 1.79MB/s]  2%|▏         | 5.20M/330M [00:01<02:27, 2.30MB/s]  2%|▏         | 6.20M/330M [00:01<01:57, 2.88MB/s]  2%|▏         | 7.20M/330M [00:01<01:36, 3.50MB/s]  2%|▏         | 8.20M/330M [00:01<01:22, 4.11MB/s]  3%|▎         | 9.20M/330M [00:02<01:11, 4.69MB/s]  3%|▎         | 10.2M/330M [00:02<01:04, 5.21MB/s]  3%|▎         | 11.2M/330M [00:02<00:59, 5.63MB/s]  4%|▎         | 12.2M/330M [00:02<00:55, 5.97MB/s]  4%|▍         | 13.2M/330M [00:02<00:53, 6.25MB/s]  4%|▍         | 14.2M/330M [00:02<00:51, 6.42MB/s]  5%|▍         | 15.2M/330M [00:02<00:50, 6.54MB/s]  5%|▍         | 16.2M/330M [00:03<00:50, 6.49MB/s]  5%|▌         | 17.2M/330M [00:03<00:47, 6.88MB/s]  6%|▌         | 18.2M/330M [00:03<00:47, 6.87MB/s]  6%|▌         | 19.2M/330M [00:03<00:47, 6.92MB/s]  6%|▌         | 20.2M/330M [00:03<00:46, 6.95MB/s]  6%|▋         | 21.2M/330M [00:03<00:46, 6.98MB/s]  7%|▋         | 22.2M/330M [00:03<00:46, 6.98MB/s]  7%|▋         | 23.2M/330M [00:04<00:46, 6.99MB/s]  7%|▋         | 24.2M/330M [00:04<00:46, 6.96MB/s]  8%|▊         | 25.2M/330M [00:04<00:45, 7.01MB/s]  8%|▊         | 26.2M/330M [00:04<00:45, 6.99MB/s]  8%|▊         | 27.2M/330M [00:04<00:45, 6.94MB/s]  9%|▊         | 28.2M/330M [00:04<00:45, 6.96MB/s]  9%|▉         | 29.2M/330M [00:05<00:45, 6.89MB/s]  9%|▉         | 30.2M/330M [00:05<00:44, 7.01MB/s]  9%|▉         | 31.2M/330M [00:05<00:44, 7.03MB/s] 10%|▉         | 32.2M/330M [00:05<00:44, 7.00MB/s] 10%|█         | 33.2M/330M [00:05<00:44, 7.02MB/s] 10%|█         | 34.2M/330M [00:05<00:44, 6.99MB/s] 11%|█         | 35.2M/330M [00:05<00:44, 6.96MB/s] 11%|█         | 36.2M/330M [00:06<00:44, 7.00MB/s] 11%|█▏        | 37.2M/330M [00:06<00:43, 7.02MB/s] 12%|█▏        | 38.2M/330M [00:06<00:43, 6.98MB/s] 12%|█▏        | 39.2M/330M [00:06<00:43, 6.99MB/s] 12%|█▏        | 40.2M/330M [00:06<00:43, 7.00MB/s] 12%|█▏        | 41.2M/330M [00:06<00:43, 6.95MB/s] 13%|█▎        | 42.2M/330M [00:06<00:43, 6.94MB/s] 13%|█▎        | 43.2M/330M [00:07<00:43, 6.91MB/s] 13%|█▎        | 44.2M/330M [00:07<00:42, 7.01MB/s] 14%|█▎        | 45.2M/330M [00:07<00:42, 7.02MB/s] 14%|█▍        | 46.2M/330M [00:07<00:42, 7.02MB/s] 14%|█▍        | 47.2M/330M [00:07<00:42, 7.01MB/s] 15%|█▍        | 48.2M/330M [00:07<00:43, 6.86MB/s] 15%|█▍        | 49.2M/330M [00:08<00:41, 7.03MB/s] 15%|█▌        | 50.2M/330M [00:08<00:42, 6.98MB/s] 16%|█▌        | 51.2M/330M [00:08<00:42, 6.87MB/s] 16%|█▌        | 52.2M/330M [00:08<00:40, 7.11MB/s] 16%|█▌        | 53.2M/330M [00:08<00:41, 7.02MB/s] 16%|█▋        | 54.3M/330M [00:08<00:41, 7.02MB/s] 17%|█▋        | 55.3M/330M [00:08<00:42, 6.76MB/s] 17%|█▋        | 56.3M/330M [00:09<00:41, 6.91MB/s] 17%|█▋        | 57.3M/330M [00:09<00:41, 6.86MB/s] 18%|█▊        | 58.3M/330M [00:09<00:41, 6.94MB/s] 18%|█▊        | 59.3M/330M [00:09<00:40, 6.94MB/s] 18%|█▊        | 60.3M/330M [00:09<00:40, 6.97MB/s] 19%|█▊        | 61.3M/330M [00:09<00:40, 6.94MB/s] 19%|█▉        | 62.3M/330M [00:09<00:40, 6.96MB/s] 19%|█▉        | 63.3M/330M [00:10<00:40, 6.96MB/s] 19%|█▉        | 64.3M/330M [00:10<00:40, 6.97MB/s] 20%|█▉        | 65.3M/330M [00:10<00:40, 6.91MB/s] 20%|██        | 66.3M/330M [00:10<00:39, 7.05MB/s] 20%|██        | 67.3M/330M [00:10<00:37, 7.29MB/s] 21%|██        | 68.3M/330M [00:10<00:38, 7.16MB/s] 21%|██        | 69.3M/330M [00:11<00:42, 6.50MB/s] 21%|██▏       | 70.3M/330M [00:11<00:41, 6.63MB/s] 22%|██▏       | 71.3M/330M [00:11<00:40, 6.72MB/s] 22%|██▏       | 72.3M/330M [00:11<00:39, 6.79MB/s] 22%|██▏       | 73.3M/330M [00:11<00:39, 6.85MB/s] 22%|██▏       | 74.3M/330M [00:11<00:39, 6.87MB/s] 23%|██▎       | 75.3M/330M [00:11<00:38, 6.89MB/s] 23%|██▎       | 76.3M/330M [00:12<00:37, 7.08MB/s] 23%|██▎       | 77.3M/330M [00:12<00:37, 7.13MB/s] 24%|██▎       | 78.3M/330M [00:12<00:37, 7.04MB/s] 24%|██▍       | 79.3M/330M [00:12<00:35, 7.36MB/s] 24%|██▍       | 80.3M/330M [00:12<00:36, 7.25MB/s] 25%|██▍       | 81.3M/330M [00:12<00:36, 7.15MB/s] 25%|██▍       | 82.3M/330M [00:12<00:35, 7.36MB/s] 25%|██▌       | 83.2M/330M [00:13<00:32, 7.92MB/s] 25%|██▌       | 84.0M/330M [00:13<00:33, 7.66MB/s] 26%|██▌       | 84.7M/330M [00:13<00:38, 6.70MB/s] 26%|██▌       | 85.4M/330M [00:13<00:43, 5.97MB/s] 26%|██▌       | 86.2M/330M [00:13<00:39, 6.50MB/s] 26%|██▋       | 87.2M/330M [00:13<00:36, 7.00MB/s] 27%|██▋       | 87.9M/330M [00:13<00:35, 7.08MB/s] 27%|██▋       | 88.6M/330M [00:13<00:38, 6.64MB/s] 27%|██▋       | 89.2M/330M [00:14<00:40, 6.27MB/s] 27%|██▋       | 90.2M/330M [00:14<00:36, 6.92MB/s] 28%|██▊       | 91.1M/330M [00:14<00:33, 7.51MB/s] 28%|██▊       | 91.9M/330M [00:14<00:34, 7.17MB/s] 28%|██▊       | 92.6M/330M [00:14<00:38, 6.51MB/s] 28%|██▊       | 93.2M/330M [00:14<00:42, 5.79MB/s] 28%|██▊       | 94.1M/330M [00:14<00:38, 6.39MB/s] 29%|██▉       | 95.1M/330M [00:14<00:37, 6.63MB/s] 29%|██▉       | 96.1M/330M [00:15<00:35, 6.83MB/s] 29%|██▉       | 97.0M/330M [00:15<00:32, 7.49MB/s] 30%|██▉       | 97.8M/330M [00:15<00:35, 6.92MB/s] 30%|██▉       | 98.5M/330M [00:15<00:38, 6.26MB/s] 30%|███       | 99.1M/330M [00:15<00:38, 6.33MB/s] 30%|███       | 100M/330M [00:15<00:35, 6.80MB/s]  31%|███       | 101M/330M [00:15<00:32, 7.39MB/s] 31%|███       | 102M/330M [00:15<00:34, 7.04MB/s] 31%|███       | 102M/330M [00:16<00:37, 6.30MB/s] 31%|███       | 103M/330M [00:16<00:37, 6.40MB/s] 31%|███▏      | 104M/330M [00:16<00:35, 6.76MB/s] 32%|███▏      | 105M/330M [00:16<00:31, 7.41MB/s] 32%|███▏      | 106M/330M [00:16<00:33, 7.04MB/s] 32%|███▏      | 106M/330M [00:16<00:37, 6.33MB/s] 32%|███▏      | 107M/330M [00:16<00:36, 6.39MB/s] 33%|███▎      | 108M/330M [00:16<00:34, 6.74MB/s] 33%|███▎      | 109M/330M [00:16<00:31, 7.34MB/s] 33%|███▎      | 110M/330M [00:17<00:33, 6.97MB/s] 33%|███▎      | 110M/330M [00:17<00:37, 6.18MB/s] 34%|███▎      | 111M/330M [00:17<00:35, 6.48MB/s] 34%|███▍      | 112M/330M [00:17<00:33, 6.81MB/s] 34%|███▍      | 113M/330M [00:17<00:31, 7.26MB/s] 34%|███▍      | 113M/330M [00:17<00:32, 6.90MB/s] 35%|███▍      | 114M/330M [00:17<00:36, 6.21MB/s] 35%|███▍      | 115M/330M [00:17<00:34, 6.56MB/s] 35%|███▌      | 116M/330M [00:18<00:33, 6.81MB/s] 35%|███▌      | 117M/330M [00:18<00:30, 7.35MB/s] 36%|███▌      | 117M/330M [00:18<00:32, 6.92MB/s] 36%|███▌      | 118M/330M [00:18<00:35, 6.30MB/s] 36%|███▌      | 119M/330M [00:18<00:33, 6.61MB/s] 36%|███▌      | 120M/330M [00:18<00:31, 7.06MB/s] 36%|███▋      | 121M/330M [00:18<00:29, 7.43MB/s] 37%|███▋      | 121M/330M [00:18<00:32, 6.73MB/s] 37%|███▋      | 122M/330M [00:19<00:36, 5.99MB/s] 37%|███▋      | 123M/330M [00:19<00:33, 6.55MB/s] 37%|███▋      | 124M/330M [00:19<00:31, 6.86MB/s] 38%|███▊      | 124M/330M [00:19<00:29, 7.37MB/s] 38%|███▊      | 125M/330M [00:19<00:32, 6.71MB/s] 38%|███▊      | 126M/330M [00:19<00:34, 6.22MB/s] 38%|███▊      | 127M/330M [00:19<00:32, 6.48MB/s] 39%|███▊      | 127M/330M [00:19<00:34, 6.22MB/s] 39%|███▉      | 129M/330M [00:20<00:29, 7.06MB/s] 39%|███▉      | 129M/330M [00:20<00:29, 7.26MB/s] 39%|███▉      | 130M/330M [00:20<00:31, 6.61MB/s] 40%|███▉      | 131M/330M [00:20<00:31, 6.55MB/s] 40%|███▉      | 131M/330M [00:20<00:29, 7.06MB/s] 40%|████      | 132M/330M [00:20<00:28, 7.20MB/s] 40%|████      | 133M/330M [00:20<00:30, 6.73MB/s] 40%|████      | 134M/330M [00:20<00:32, 6.31MB/s] 41%|████      | 134M/330M [00:20<00:30, 6.71MB/s] 41%|████      | 135M/330M [00:21<00:27, 7.32MB/s] 41%|████      | 136M/330M [00:21<00:29, 6.91MB/s] 41%|████▏     | 137M/330M [00:21<00:32, 6.22MB/s] 42%|████▏     | 138M/330M [00:21<00:30, 6.58MB/s] 42%|████▏     | 138M/330M [00:21<00:28, 7.08MB/s] 42%|████▏     | 139M/330M [00:21<00:27, 7.18MB/s] 42%|████▏     | 140M/330M [00:21<00:31, 6.31MB/s] 43%|████▎     | 140M/330M [00:21<00:31, 6.39MB/s] 43%|████▎     | 141M/330M [00:21<00:28, 6.87MB/s] 43%|████▎     | 142M/330M [00:22<00:27, 7.29MB/s] 43%|████▎     | 143M/330M [00:22<00:28, 6.95MB/s] 43%|████▎     | 144M/330M [00:22<00:31, 6.16MB/s] 44%|████▎     | 144M/330M [00:22<00:29, 6.54MB/s] 44%|████▍     | 145M/330M [00:22<00:27, 7.10MB/s] 44%|████▍     | 146M/330M [00:22<00:27, 7.06MB/s] 44%|████▍     | 147M/330M [00:22<00:30, 6.42MB/s] 45%|████▍     | 147M/330M [00:22<00:29, 6.55MB/s] 45%|████▍     | 148M/330M [00:23<00:27, 7.01MB/s] 45%|████▌     | 149M/330M [00:23<00:26, 7.30MB/s] 45%|████▌     | 150M/330M [00:23<00:28, 6.62MB/s] 46%|████▌     | 150M/330M [00:23<00:29, 6.48MB/s] 46%|████▌     | 151M/330M [00:23<00:27, 6.73MB/s] 46%|████▌     | 152M/330M [00:23<00:25, 7.26MB/s] 46%|████▋     | 153M/330M [00:23<00:27, 6.86MB/s] 46%|████▋     | 153M/330M [00:23<00:29, 6.30MB/s] 47%|████▋     | 154M/330M [00:23<00:27, 6.67MB/s] 47%|████▋     | 155M/330M [00:24<00:26, 6.97MB/s] 47%|████▋     | 156M/330M [00:24<00:25, 7.17MB/s] 47%|████▋     | 157M/330M [00:24<00:27, 6.52MB/s] 48%|████▊     | 157M/330M [00:24<00:27, 6.56MB/s] 48%|████▊     | 158M/330M [00:24<00:25, 6.97MB/s] 48%|████▊     | 159M/330M [00:24<00:24, 7.32MB/s] 48%|████▊     | 160M/330M [00:24<00:26, 6.66MB/s] 49%|████▊     | 160M/330M [00:24<00:27, 6.44MB/s] 49%|████▉     | 161M/330M [00:24<00:26, 6.81MB/s] 49%|████▉     | 162M/330M [00:25<00:24, 7.18MB/s] 49%|████▉     | 163M/330M [00:25<00:26, 6.62MB/s] 49%|████▉     | 163M/330M [00:25<00:27, 6.38MB/s] 50%|████▉     | 164M/330M [00:25<00:26, 6.67MB/s] 50%|████▉     | 165M/330M [00:25<00:24, 7.16MB/s] 50%|█████     | 166M/330M [00:25<00:24, 7.02MB/s] 50%|█████     | 166M/330M [00:25<00:27, 6.30MB/s] 51%|█████     | 167M/330M [00:25<00:26, 6.58MB/s] 51%|█████     | 168M/330M [00:26<00:24, 7.07MB/s] 51%|█████     | 169M/330M [00:26<00:23, 7.24MB/s] 51%|█████▏    | 169M/330M [00:26<00:25, 6.58MB/s] 51%|█████▏    | 170M/330M [00:26<00:25, 6.59MB/s] 52%|█████▏    | 171M/330M [00:26<00:23, 6.99MB/s] 52%|█████▏    | 172M/330M [00:26<00:25, 6.65MB/s] 52%|█████▏    | 172M/330M [00:26<00:28, 5.79MB/s] 52%|█████▏    | 173M/330M [00:26<00:31, 5.27MB/s] 53%|█████▎    | 174M/330M [00:27<00:29, 5.55MB/s] 53%|█████▎    | 175M/330M [00:27<00:27, 5.88MB/s] 53%|█████▎    | 176M/330M [00:27<00:26, 6.21MB/s] 53%|█████▎    | 177M/330M [00:27<00:25, 6.43MB/s] 54%|█████▍    | 178M/330M [00:27<00:24, 6.60MB/s] 54%|█████▍    | 179M/330M [00:27<00:23, 6.71MB/s] 54%|█████▍    | 180M/330M [00:27<00:23, 6.79MB/s] 55%|█████▍    | 181M/330M [00:28<00:22, 6.86MB/s] 55%|█████▌    | 182M/330M [00:28<00:22, 6.90MB/s] 55%|█████▌    | 183M/330M [00:28<00:22, 6.90MB/s] 56%|█████▌    | 184M/330M [00:28<00:22, 6.95MB/s] 56%|█████▌    | 185M/330M [00:28<00:21, 6.94MB/s] 56%|█████▌    | 186M/330M [00:28<00:21, 6.97MB/s] 57%|█████▋    | 187M/330M [00:28<00:21, 6.93MB/s] 57%|█████▋    | 188M/330M [00:29<00:21, 6.99MB/s] 57%|█████▋    | 189M/330M [00:29<00:21, 6.99MB/s] 57%|█████▋    | 190M/330M [00:29<00:21, 6.94MB/s] 58%|█████▊    | 191M/330M [00:29<00:20, 7.00MB/s] 58%|█████▊    | 192M/330M [00:29<00:20, 6.96MB/s] 58%|█████▊    | 193M/330M [00:29<00:20, 6.89MB/s] 59%|█████▊    | 194M/330M [00:30<00:20, 7.00MB/s] 59%|█████▉    | 195M/330M [00:30<00:20, 6.84MB/s] 59%|█████▉    | 196M/330M [00:30<00:19, 7.07MB/s] 60%|█████▉    | 197M/330M [00:30<00:19, 7.07MB/s] 60%|█████▉    | 198M/330M [00:30<00:19, 7.02MB/s] 60%|██████    | 199M/330M [00:30<00:19, 7.03MB/s] 60%|██████    | 200M/330M [00:30<00:19, 6.89MB/s] 61%|██████    | 201M/330M [00:31<00:19, 7.00MB/s] 61%|██████    | 202M/330M [00:31<00:19, 7.01MB/s] 61%|██████▏   | 203M/330M [00:31<00:19, 6.99MB/s] 62%|██████▏   | 204M/330M [00:31<00:18, 7.02MB/s] 62%|██████▏   | 205M/330M [00:31<00:18, 7.03MB/s] 62%|██████▏   | 206M/330M [00:31<00:18, 6.99MB/s] 63%|██████▎   | 207M/330M [00:31<00:18, 7.00MB/s] 63%|██████▎   | 208M/330M [00:32<00:18, 7.01MB/s] 63%|██████▎   | 209M/330M [00:32<00:18, 6.93MB/s] 63%|██████▎   | 210M/330M [00:32<00:18, 6.91MB/s] 64%|██████▍   | 211M/330M [00:32<00:17, 7.01MB/s] 64%|██████▍   | 212M/330M [00:32<00:17, 7.05MB/s] 64%|██████▍   | 213M/330M [00:32<00:17, 7.02MB/s] 65%|██████▍   | 214M/330M [00:33<00:17, 6.97MB/s] 65%|██████▌   | 215M/330M [00:33<00:17, 7.00MB/s] 65%|██████▌   | 216M/330M [00:33<00:17, 7.01MB/s] 66%|██████▌   | 217M/330M [00:33<00:16, 7.01MB/s] 66%|██████▌   | 218M/330M [00:33<00:16, 7.00MB/s] 66%|██████▌   | 219M/330M [00:33<00:16, 6.98MB/s] 67%|██████▋   | 220M/330M [00:33<00:16, 6.99MB/s] 67%|██████▋   | 221M/330M [00:34<00:16, 6.89MB/s] 67%|██████▋   | 222M/330M [00:34<00:16, 7.03MB/s] 67%|██████▋   | 223M/330M [00:34<00:16, 7.02MB/s] 68%|██████▊   | 224M/330M [00:34<00:15, 7.00MB/s] 68%|██████▊   | 225M/330M [00:34<00:15, 7.01MB/s] 68%|██████▊   | 226M/330M [00:34<00:15, 7.02MB/s] 69%|██████▊   | 227M/330M [00:34<00:15, 6.97MB/s] 69%|██████▉   | 228M/330M [00:35<00:15, 6.97MB/s] 69%|██████▉   | 229M/330M [00:35<00:15, 7.03MB/s] 70%|██████▉   | 230M/330M [00:35<00:15, 7.01MB/s] 70%|██████▉   | 231M/330M [00:35<00:15, 6.87MB/s] 70%|███████   | 232M/330M [00:35<00:14, 7.02MB/s] 70%|███████   | 233M/330M [00:35<00:14, 7.03MB/s] 71%|███████   | 234M/330M [00:36<00:14, 6.94MB/s] 71%|███████   | 235M/330M [00:36<00:14, 7.01MB/s] 71%|███████▏  | 236M/330M [00:36<00:14, 7.00MB/s] 72%|███████▏  | 237M/330M [00:36<00:14, 6.79MB/s] 72%|███████▏  | 238M/330M [00:36<00:13, 6.99MB/s] 72%|███████▏  | 239M/330M [00:36<00:13, 7.08MB/s] 73%|███████▎  | 240M/330M [00:36<00:13, 7.05MB/s] 73%|███████▎  | 241M/330M [00:37<00:13, 6.99MB/s] 73%|███████▎  | 242M/330M [00:37<00:13, 6.99MB/s] 74%|███████▎  | 243M/330M [00:37<00:13, 7.01MB/s] 74%|███████▍  | 244M/330M [00:37<00:13, 6.94MB/s] 74%|███████▍  | 245M/330M [00:37<00:12, 6.92MB/s] 74%|███████▍  | 246M/330M [00:37<00:12, 7.04MB/s] 75%|███████▍  | 247M/330M [00:37<00:12, 7.03MB/s] 75%|███████▌  | 248M/330M [00:38<00:12, 7.01MB/s] 75%|███████▌  | 249M/330M [00:38<00:12, 6.95MB/s] 76%|███████▌  | 250M/330M [00:38<00:12, 7.02MB/s] 76%|███████▌  | 251M/330M [00:38<00:11, 6.97MB/s] 76%|███████▌  | 252M/330M [00:38<00:11, 6.98MB/s] 77%|███████▋  | 253M/330M [00:38<00:11, 6.98MB/s] 77%|███████▋  | 254M/330M [00:39<00:11, 7.06MB/s] 77%|███████▋  | 255M/330M [00:39<00:11, 6.98MB/s] 77%|███████▋  | 256M/330M [00:39<00:11, 6.98MB/s] 78%|███████▊  | 257M/330M [00:39<00:11, 6.99MB/s] 78%|███████▊  | 258M/330M [00:39<00:10, 7.01MB/s] 78%|███████▊  | 259M/330M [00:39<00:11, 6.71MB/s] 79%|███████▊  | 260M/330M [00:39<00:10, 7.06MB/s] 79%|███████▉  | 261M/330M [00:40<00:10, 7.02MB/s] 79%|███████▉  | 262M/330M [00:40<00:10, 7.02MB/s] 80%|███████▉  | 263M/330M [00:40<00:10, 7.02MB/s] 80%|███████▉  | 264M/330M [00:40<00:09, 7.04MB/s] 80%|████████  | 265M/330M [00:40<00:09, 7.03MB/s] 80%|████████  | 266M/330M [00:40<00:09, 6.96MB/s] 81%|████████  | 267M/330M [00:41<00:09, 6.98MB/s] 81%|████████  | 268M/330M [00:41<00:09, 6.99MB/s] 81%|████████▏ | 269M/330M [00:41<00:09, 6.96MB/s] 82%|████████▏ | 270M/330M [00:41<00:09, 6.98MB/s] 82%|████████▏ | 271M/330M [00:41<00:08, 7.04MB/s] 82%|████████▏ | 272M/330M [00:41<00:08, 7.02MB/s] 83%|████████▎ | 273M/330M [00:41<00:08, 6.99MB/s] 83%|████████▎ | 274M/330M [00:42<00:08, 7.01MB/s] 83%|████████▎ | 275M/330M [00:42<00:08, 6.98MB/s] 84%|████████▎ | 276M/330M [00:42<00:08, 6.94MB/s] 84%|████████▍ | 277M/330M [00:42<00:08, 6.92MB/s] 84%|████████▍ | 278M/330M [00:42<00:07, 7.03MB/s] 84%|████████▍ | 279M/330M [00:42<00:07, 6.99MB/s] 85%|████████▍ | 280M/330M [00:42<00:07, 7.02MB/s] 85%|████████▌ | 281M/330M [00:43<00:07, 6.84MB/s] 85%|████████▌ | 282M/330M [00:43<00:07, 7.05MB/s] 86%|████████▌ | 283M/330M [00:43<00:07, 7.04MB/s] 86%|████████▌ | 284M/330M [00:43<00:06, 7.02MB/s] 86%|████████▌ | 285M/330M [00:43<00:06, 7.01MB/s] 87%|████████▋ | 286M/330M [00:43<00:06, 6.97MB/s] 87%|████████▋ | 287M/330M [00:44<00:06, 7.01MB/s] 87%|████████▋ | 288M/330M [00:44<00:06, 7.00MB/s] 87%|████████▋ | 289M/330M [00:44<00:06, 6.99MB/s] 88%|████████▊ | 290M/330M [00:44<00:06, 6.98MB/s] 88%|████████▊ | 291M/330M [00:44<00:05, 7.00MB/s] 88%|████████▊ | 292M/330M [00:44<00:05, 6.99MB/s] 89%|████████▊ | 293M/330M [00:44<00:05, 6.96MB/s] 89%|████████▉ | 294M/330M [00:45<00:05, 6.99MB/s] 89%|████████▉ | 295M/330M [00:45<00:05, 7.00MB/s] 90%|████████▉ | 296M/330M [00:45<00:05, 6.99MB/s] 90%|████████▉ | 297M/330M [00:45<00:05, 6.98MB/s] 90%|█████████ | 298M/330M [00:45<00:04, 6.99MB/s] 90%|█████████ | 299M/330M [00:45<00:04, 6.99MB/s] 91%|█████████ | 300M/330M [00:45<00:04, 6.94MB/s] 91%|█████████ | 301M/330M [00:46<00:04, 6.96MB/s] 91%|█████████▏| 302M/330M [00:46<00:04, 6.93MB/s] 92%|█████████▏| 303M/330M [00:46<00:04, 7.01MB/s] 92%|█████████▏| 304M/330M [00:46<00:03, 6.99MB/s] 92%|█████████▏| 305M/330M [00:46<00:03, 7.04MB/s] 93%|█████████▎| 306M/330M [00:46<00:03, 7.01MB/s] 93%|█████████▎| 307M/330M [00:47<00:03, 6.93MB/s] 93%|█████████▎| 308M/330M [00:47<00:03, 6.93MB/s] 94%|█████████▎| 309M/330M [00:47<00:03, 6.94MB/s] 94%|█████████▍| 310M/330M [00:47<00:03, 6.97MB/s] 94%|█████████▍| 311M/330M [00:47<00:02, 7.03MB/s] 94%|█████████▍| 312M/330M [00:47<00:02, 6.92MB/s] 95%|█████████▍| 313M/330M [00:47<00:02, 6.98MB/s] 95%|█████████▌| 314M/330M [00:48<00:02, 7.00MB/s] 95%|█████████▌| 315M/330M [00:48<00:02, 7.00MB/s] 96%|█████████▌| 316M/330M [00:48<00:02, 7.02MB/s] 96%|█████████▌| 317M/330M [00:48<00:02, 7.00MB/s] 96%|█████████▌| 318M/330M [00:48<00:01, 7.00MB/s] 97%|█████████▋| 319M/330M [00:48<00:01, 7.00MB/s] 97%|█████████▋| 320M/330M [00:48<00:01, 7.00MB/s] 97%|█████████▋| 321M/330M [00:49<00:01, 6.99MB/s] 97%|█████████▋| 322M/330M [00:49<00:01, 6.94MB/s] 98%|█████████▊| 322M/330M [00:49<00:01, 5.87MB/s] 98%|█████████▊| 323M/330M [00:49<00:01, 5.39MB/s] 98%|█████████▊| 324M/330M [00:49<00:01, 4.78MB/s] 98%|█████████▊| 324M/330M [00:49<00:01, 4.50MB/s] 98%|█████████▊| 325M/330M [00:50<00:01, 5.01MB/s] 99%|█████████▉| 326M/330M [00:50<00:00, 5.46MB/s] 99%|█████████▉| 327M/330M [00:50<00:00, 5.86MB/s] 99%|█████████▉| 328M/330M [00:50<00:00, 6.09MB/s]100%|█████████▉| 329M/330M [00:50<00:00, 6.40MB/s]100%|█████████▉| 330M/330M [00:50<00:00, 6.61MB/s]100%|██████████| 330M/330M [00:50<00:00, 6.82MB/s]
+Namespace(alpha=0.1, attention_normalize='local', attribute='safety', batch_size=32, comet=False, csv='votes/', cuda=True, cuda_id=0, dataset='/scratch/rsangers/placepulse', epoch=1, equal=False, finetune=True, logexp=False, lr=0.001, lr_decay=False, max_epochs=20, model='transformer', model_dir='models/', n_heads=1, n_layers=1, n_outputs=1, num_workers=4, pbar=False, premodel='deit', reg=False, resume=False, sgd=False, softmax=False, tag='', wd=0.0)
+COMET INFO: Experiment is live on comet.ml https://www.comet.ml/rsangers/urban-space-perception/43fe119fb57b4460be1832ea7628e826
+
+Traceback (most recent call last):
+  File "train.py", line 234, in <module>
+    train(device,net,dataloader,val_loader, args, logger, experiment)
+  File "/home/nfs/rsangers/Honours/train_scripts/SegRank.py", line 186, in train
+    trainer.run(dataloader,max_epochs=args.max_epochs, seed=randint(1,15))
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 850, in run
+    return self._internal_run()
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 952, in _internal_run
+    self._handle_exception(e)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 716, in _handle_exception
+    raise e
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 937, in _internal_run
+    hours, mins, secs = self._run_once_on_dataset()
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 705, in _run_once_on_dataset
+    self._handle_exception(e)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 716, in _handle_exception
+    raise e
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/ignite/engine/engine.py", line 688, in _run_once_on_dataset
+    self.state.output = self._process_function(self, self.state.batch)
+  File "/home/nfs/rsangers/Honours/train_scripts/SegRank.py", line 27, in update
+    forward_dict = net(input_left,input_right)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nfs/rsangers/Honours/nets/MyTransformer.py", line 24, in forward
+    'right': self.single_forward(right_batch)
+  File "/home/nfs/rsangers/Honours/nets/MyTransformer.py", line 29, in single_forward
+    x = self.transformer(image)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/timm/models/vision_transformer.py", line 347, in forward
+    x = self.forward_features(x)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/timm/models/vision_transformer.py", line 339, in forward_features
+    x = self.blocks(x)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/container.py", line 117, in forward
+    input = module(input)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/timm/models/vision_transformer.py", line 214, in forward
+    x = x + self.drop_path(self.mlp(self.norm2(x)))
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/timm/models/layers/mlp.py", line 21, in forward
+    x = self.fc1(x)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/modules/linear.py", line 93, in forward
+    return F.linear(input, self.weight, self.bias)
+  File "/home/nfs/rsangers/.local/lib/python3.6/site-packages/torch/nn/functional.py", line 1692, in linear
+    output = input.matmul(weight.t())
+RuntimeError: CUDA out of memory. Tried to allocate 74.00 MiB (GPU 0; 10.92 GiB total capacity; 9.86 GiB already allocated; 49.44 MiB free; 10.19 GiB reserved in total by PyTorch)
+COMET INFO: ----------------------------
+COMET INFO: Comet.ml Experiment Summary:
+COMET INFO:   Data:
+COMET INFO:     url: https://www.comet.ml/rsangers/urban-space-perception/43fe119fb57b4460be1832ea7628e826
+COMET INFO:   Metrics [count] (min, max):
+COMET INFO:     sys.cpu.percent.01       : (49.7, 49.7)
+COMET INFO:     sys.cpu.percent.02       : (5.0, 5.0)
+COMET INFO:     sys.cpu.percent.03       : (1.3, 1.3)
+COMET INFO:     sys.cpu.percent.04       : (68.2, 68.2)
+COMET INFO:     sys.cpu.percent.05       : (15.6, 15.6)
+COMET INFO:     sys.cpu.percent.06       : (1.1, 1.1)
+COMET INFO:     sys.cpu.percent.07       : (0.2, 0.2)
+COMET INFO:     sys.cpu.percent.08       : (28.0, 28.0)
+COMET INFO:     sys.cpu.percent.09       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.10       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.11       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.12       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.13       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.14       : (5.9, 5.9)
+COMET INFO:     sys.cpu.percent.15       : (0.6, 0.6)
+COMET INFO:     sys.cpu.percent.16       : (0.5, 0.5)
+COMET INFO:     sys.cpu.percent.17       : (55.1, 55.1)
+COMET INFO:     sys.cpu.percent.18       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.19       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.20       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.21       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.22       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.23       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.24       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.25       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.26       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.27       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.28       : (0.2, 0.2)
+COMET INFO:     sys.cpu.percent.29       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.30       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.31       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.32       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.33       : (51.1, 51.1)
+COMET INFO:     sys.cpu.percent.34       : (8.2, 8.2)
+COMET INFO:     sys.cpu.percent.35       : (0.4, 0.4)
+COMET INFO:     sys.cpu.percent.36       : (61.0, 61.0)
+COMET INFO:     sys.cpu.percent.37       : (15.1, 15.1)
+COMET INFO:     sys.cpu.percent.38       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.39       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.40       : (47.2, 47.2)
+COMET INFO:     sys.cpu.percent.41       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.42       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.43       : (0.2, 0.2)
+COMET INFO:     sys.cpu.percent.44       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.45       : (0.3, 0.3)
+COMET INFO:     sys.cpu.percent.46       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.47       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.48       : (12.2, 12.2)
+COMET INFO:     sys.cpu.percent.49       : (52.3, 52.3)
+COMET INFO:     sys.cpu.percent.50       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.51       : (0.2, 0.2)
+COMET INFO:     sys.cpu.percent.52       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.53       : (0.2, 0.2)
+COMET INFO:     sys.cpu.percent.54       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.55       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.56       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.57       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.58       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.59       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.60       : (0.1, 0.1)
+COMET INFO:     sys.cpu.percent.61       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.62       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.63       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.64       : (0.0, 0.0)
+COMET INFO:     sys.cpu.percent.avg      : (7.5140625000000005, 7.5140625000000005)
+COMET INFO:     sys.gpu.0.free_memory    : (11717246976.0, 11717246976.0)
+COMET INFO:     sys.gpu.0.gpu_utilization: (0.0, 0.0)
+COMET INFO:     sys.gpu.0.total_memory   : (11721506816.0, 11721506816.0)
+COMET INFO:     sys.gpu.0.used_memory    : (4259840.0, 4259840.0)
+COMET INFO:     sys.gpu.1.free_memory    : (11719475200.0, 11719475200.0)
+COMET INFO:     sys.gpu.1.gpu_utilization: (0.0, 0.0)
+COMET INFO:     sys.gpu.1.total_memory   : (11721506816.0, 11721506816.0)
+COMET INFO:     sys.gpu.1.used_memory    : (2031616.0, 2031616.0)
+COMET INFO:     sys.load.avg             : (4.08, 4.08)
+COMET INFO:     sys.ram.total            : (270186745856.0, 270186745856.0)
+COMET INFO:     sys.ram.used             : (36925063168.0, 36925063168.0)
+COMET INFO: ----------------------------
+COMET INFO: Uploading stats to Comet before program termination (may take several seconds)
+srun: error: insy11: task 0: Exited with exit code 1
