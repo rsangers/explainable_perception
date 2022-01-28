@@ -1,40 +1,31 @@
 import sys
-import os
-import torch
 from torchvision import transforms
-from torch.utils.data import random_split, DataLoader
 import torchvision.models as models
-import pandas as pd
-import torch.nn as nn
 import torchvision
-
-import numpy as np
-from data import PlacePulseDataset, AdaptTransform
-import seg_transforms
-
-from timeit import default_timer as timer
-from utils.ranking import compute_ranking_loss, compute_ranking_accuracy
-
-import matplotlib.pyplot as plt
-from PIL import Image
-
-import importlib
-import pytorch_grad_cam
-importlib.reload(pytorch_grad_cam)
-
 from torchvision.transforms import Compose, Normalize, ToTensor
-from pytorch_grad_cam import GradCAM, ScoreCAM, GradCAMPlusPlus, AblationCAM, XGradCAM, EigenCAM
-from pytorch_grad_cam.utils.image import show_cam_on_image
-from PIL import Image
+
 import numpy as np
 import cv2
 import torch
 import math
+import scipy
+from timeit import default_timer as timer
+import matplotlib.pyplot as plt
+import importlib
 
-def main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda, cuda_id, modelpath, csvpath, datapath, nImages, descending):
-    train_transforms, val_transforms = define_transforms(modeltype)
+import pytorch_grad_cam
 
-    data = PlacePulseDataset(csvpath, datapath, val_transforms, myattribute, return_ids=True)
+importlib.reload(pytorch_grad_cam)
+from pytorch_grad_cam import GradCAM, ScoreCAM, AblationCAM, EigenCAM
+from pytorch_grad_cam.utils.image import show_cam_on_image
+
+from data import PlacePulseDataset, AdaptTransform
+
+
+def main(myattribute, premodeltype, modeltype, use_cuda, cuda_id, modelpath, csvpath, datapath,
+         descending, save_images, visualisation):
+    transform = define_transforms(modeltype)
+    data = PlacePulseDataset(csvpath, datapath, transform, myattribute, return_ids=True)
     print("Dataset size: ", len(data))
 
     if use_cuda:
@@ -42,102 +33,115 @@ def main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda
     else:
         device = torch.device("cpu")
 
-    if modeltype == "rcnn" and premodeltype == "resnet":
-        import nets.rcnn as rcnn
+    if modeltype == "cnn" and premodeltype == "resnet":
+        import nets.MyCnn as MyCnn
 
-        net = rcnn.RCnn(models.resnet50, finetune=True)
-        # net.rank_fc_1 = nn.Linear(8192, 4096)
+        net = MyCnn.MyCnn(models.resnet50, finetune=True)
+    elif modeltype == "transformer" and premodeltype == "deit_small":
+        import nets.MyTransformer as MyTransformer
+
+        net = MyTransformer.MyTransformer(
+            torch.hub.load('facebookresearch/deit:main', 'deit_small_patch16_224', pretrained=True))
     else:
         print("Model not available yet!")
+        return
 
     net.load_state_dict(torch.load(modelpath))
     net = net.eval().to(device)
 
     print("Running inference...")
-    idToRank, idToImage = infer(data, net, nImages, device)
+    idToRank, idToImage = infer(data, net, modeltype)
 
     print("Plotting images...")
     sortedImages, sortedRanks = showImages(idToImage, idToRank, descending)
 
-    # net.cnn[8]=nn.AdaptiveAvgPool2d(output_size=(1, 1))
-
     print("Generating XAI cam...")
-    nImages = 16
+    if not save_images:
+        nImages = 16
+        plotWidth = math.ceil(math.sqrt(nImages))
+        plotHeight = 1 + int((nImages - 1) / plotWidth)
 
-    plotWidth = math.ceil(math.sqrt(nImages))
-    plotHeight = 1 + int((nImages - 1) / plotWidth)
+        fig2, ax2 = plt.subplots(plotHeight, plotWidth, sharex=True, sharey=True, figsize=(15, 15))
+        plt.subplots_adjust(wspace=0.1, hspace=0.2)
 
-    fig2, ax2 = plt.subplots(plotHeight, plotWidth, sharex=True, sharey=True, figsize=(15, 15))
-    plt.subplots_adjust(wspace=0.1, hspace=0.2)
+    for i in range(50):  # Save the top 50 images
+        if visualisation.startswith('Attention'):
+            camImage = np.float32(showattention(sortedImages[i], net, visualisation))
+        else:
+            camImage = np.float32(showcam(sortedImages[i], net, modeltype, visualisation))
 
-    for i in range(nImages):
-        xIndex = int(i / plotWidth)
-        yIndex = i % plotWidth
+        if save_images:
+            camImage = scipy.ndimage.zoom(camImage, (4, 4, 1), order=1)
+            transformed_img = np.float32(sortedImages[i][[2, 1, 0], :, :].permute(1, 2, 0) * 256)
+            if modeltype == 'transformer':
+                if descending:
+                    cv2.imwrite("images_transformer/" + myattribute + "/high_exp/img" + str(i) + ".jpg",
+                                camImage[:, :, ::-1])
+                    cv2.imwrite("images_transformer/" + myattribute + "/high/img" + str(i) + ".jpg", transformed_img)
+                else:
+                    cv2.imwrite("images_transformer/" + myattribute + "/low_exp/img" + str(i) + ".jpg",
+                                camImage[:, :, ::-1])
+                    cv2.imwrite("images_transformer/" + myattribute + "/low/img" + str(i) + ".jpg", transformed_img)
+            else:
+                if descending:
+                    cv2.imwrite("images/" + myattribute + "/high_exp/img" + str(i) + ".jpg", camImage[:, :, ::-1])
+                    cv2.imwrite("images/" + myattribute + "/high/img" + str(i) + ".jpg", transformed_img)
+                else:
+                    cv2.imwrite("images/" + myattribute + "/low_exp/img" + str(i) + ".jpg", camImage[:, :, ::-1])
+                    cv2.imwrite("images/" + myattribute + "/low/img" + str(i) + ".jpg", transformed_img)
+        elif i < 16:
+            xIndex = int(i / plotWidth)
+            yIndex = i % plotWidth
 
-        camImage = np.float32(showcam(sortedImages[i], net)) / 255
-        title = str(myattribute) + ": " + str(round(sortedRanks[i].item(), 2))
+            camImage = camImage / 255
+            title = str(myattribute) + ": " + str(round(sortedRanks[i].item(), 2))
 
-        ax2[xIndex, yIndex].imshow(camImage)
-        ax2[xIndex, yIndex].title.set_text(title)
+            ax2[xIndex, yIndex].imshow(camImage)
+            ax2[xIndex, yIndex].title.set_text(title)
 
-    for i in range(plotWidth * plotHeight - nImages):
-        ax2[plotHeight - 1, plotWidth - 1 - i].axis('off')
+    if not save_images:
+        for i in range(plotWidth * plotHeight - nImages):
+            ax2[plotHeight - 1, plotWidth - 1 - i].axis('off')
 
     plt.draw()
     plt.show()
 
 
-
 def define_transforms(modeltype):
-    if modeltype not in ["segrank", 'sgrb', 'segattn']:
-        train_transforms = transforms.Compose([
+    if modeltype == "transformer":
+        transform = transforms.Compose([
             AdaptTransform(transforms.ToPILImage()),
-            AdaptTransform(transforms.Resize((244, 244))),
+            AdaptTransform(transforms.Resize(256, interpolation=3)),
+            AdaptTransform(transforms.CenterCrop(224)),
             AdaptTransform(transforms.ToTensor())
         ])
-        val_transforms = transforms.Compose([
-            AdaptTransform(transforms.ToPILImage()),
-            AdaptTransform(transforms.Resize((244, 244))),
-            AdaptTransform(transforms.ToTensor())
-        ])
-        return_images = True
     else:
-        IMG_MEAN = np.array((104.00698793, 116.66876762, 122.67891434), dtype=np.float32)
-        train_transforms = transforms.Compose([
-            AdaptTransform(seg_transforms.ToArray()),
-            AdaptTransform(seg_transforms.SubstractMean(IMG_MEAN)),
-            AdaptTransform(seg_transforms.Resize((244, 244))),
-            AdaptTransform(seg_transforms.ToTorchDims())
+        transform = transforms.Compose([
+            AdaptTransform(transforms.ToPILImage()),
+            AdaptTransform(transforms.Resize((244, 244))),
+            AdaptTransform(transforms.ToTensor())
         ])
-        val_transforms = transforms.Compose([
-            AdaptTransform(seg_transforms.ToArray()),
-            AdaptTransform(seg_transforms.SubstractMean(IMG_MEAN)),
-            AdaptTransform(seg_transforms.Resize((244, 244))),
-            AdaptTransform(seg_transforms.ToTorchDims())
-        ])
-        return_images = True
-    return train_transforms, val_transforms
+    return transform
 
 
-
-def infer(data, net, nImages, device):
-    rank_crit = nn.MarginRankingLoss(reduction='mean', margin=1)
+def infer(data, net, modeltype):
     idToRank = {}
     idToImage = {}
 
     with torch.no_grad():
         print("Total amount of imagepairs: ", data.__len__())
         start = timer()
-        for i in range(nImages):
+        for i in range(data.__len__()):
             sample = data.__getitem__(i)
-            input_left, input_right, label, attribute = sample['left_image'], sample['right_image'], sample['winner'], \
-                                                        sample['attribute']
+            input_left, input_right = sample['left_image'], sample['right_image']
             left_id, right_id = sample['left_id'], sample['right_id']
 
-            label, attribute = torch.Tensor([label]).to(device).float(), torch.Tensor([attribute]).to(device)
-
-            forward_dict = net(input_left.to('cuda').reshape(1, 3, 244, 244),
-                               input_right.to('cuda').reshape(1, 3, 244, 244))
+            if modeltype == 'transformer':
+                forward_dict = net(input_left.to('cuda').reshape(1, 3, 224, 224),
+                                   input_right.to('cuda').reshape(1, 3, 224, 224))
+            else:
+                forward_dict = net(input_left.to('cuda').reshape(1, 3, 244, 244),
+                                   input_right.to('cuda').reshape(1, 3, 244, 244))
             output_rank_left, output_rank_right = forward_dict['left']['output'], forward_dict['right']['output']
 
             idToRank[left_id] = output_rank_left
@@ -153,12 +157,10 @@ def infer(data, net, nImages, device):
     print("Total runtime: ", str(end - start))
     return idToRank, idToImage
 
+
 def showImages(idToImage, idToRank, descending):
-    rank_crit = nn.MarginRankingLoss(reduction='mean', margin=1)
     nImages = 16
 
-    # imageDict = dict(zip(images, ranks))
-    # imageDict = {k: v for k, v in sorted(imageDict.items(), key=lambda item: item[1], reverse=descending)}
     sortedIdToRank = {k: v for k, v in sorted(idToRank.items(), key=lambda item: item[1], reverse=descending)}
     sortedRanks = list(sortedIdToRank.values())
 
@@ -184,6 +186,7 @@ def showImages(idToImage, idToRank, descending):
     plt.draw()
     return sortedImages, sortedRanks
 
+
 def preprocess_image(img: np.ndarray, mean=None, std=None) -> torch.Tensor:
     if std is None:
         std = [0.5, 0.5, 0.5]
@@ -197,54 +200,103 @@ def preprocess_image(img: np.ndarray, mean=None, std=None) -> torch.Tensor:
 
     return preprocessing(img.copy()).unsqueeze(0)
 
-def showcam(imageTensor, net):
-    rgb_img = imageTensor.permute(1, 2, 0).numpy()
+
+def showattention(imageTensor, model, visualisation):
+    def show_mask_on_image(img, mask):
+        img = np.float32(img)
+
+        heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_HSV)
+        heatmap = np.float32(heatmap) / 255
+        cam = heatmap + np.float32(img)
+        cam = cam / np.max(cam)
+
+        return np.uint8(255 * cam)
+
+    rgb_img = imageTensor[[2, 1, 0], :, :].permute(1, 2, 0).numpy()
     input_tensor = preprocess_image(rgb_img, mean=[0.485, 0.456, 0.406],
                                     std=[0.229, 0.224, 0.225]).cuda()
-    # model = net.cnn
-    # target_layer = model[7][-1]
-    model = net
-    target_layer = model.cnn[7][-1]
 
-    # target_layer = model[8]
+    if visualisation == "AttentionRollout":
+        grad_rollout = VITAttentionRollout(model, discard_ratio=0.01, head_fusion='max')
+        mask = grad_rollout(input_tensor)
+    else:
+        grad_rollout = VITAttentionGradRollout(model, discard_ratio=0.01)
+        mask = grad_rollout(input_tensor, category_index=0)
 
-    # print(net.forward(input_tensor))
-
-    cam = EigenCAM(model=model, target_layer=target_layer, use_cuda=True)
-    #cam = AblationCAM(model=model, target_layer=target_layer, use_cuda=True)
-    cam.batch_size = 2
-
-    # grayscale_cam = cam(input_tensor=input_tensor, target_category=0, aug_smooth=True, eigen_smooth=True)
-    grayscale_cam = cam(input_tensor=input_tensor, target_category=0)
-
-    # In this example grayscale_cam has only one image in the batch:
-    grayscale_cam = grayscale_cam[0, :]
-
-    visualization = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
-    # mask = cv2.applyColorMap(np.uint8(255 * grayscale_cam), cv2.COLOR_BGR2RGB)
+    np_img = np.array(rgb_img)[:, :, ::-1]
+    mask = cv2.resize(mask, (np_img.shape[1], np_img.shape[0]))
+    visualization = show_mask_on_image(np_img, mask)
 
     return torch.Tensor(visualization)
+
+
+def showcam(imageTensor, net, modeltype, visualisation):
+    def reshape_transform(tensor, height=14, width=14):
+        result = tensor[:, 1:, :].reshape(tensor.size(0),
+                                          height, width, tensor.size(2))
+
+        result = result.transpose(2, 3).transpose(1, 2)
+        return result
+
+    rgb_img = imageTensor[[2, 1, 0], :, :].permute(1, 2, 0).numpy()
+    input_tensor = preprocess_image(rgb_img, mean=[0.485, 0.456, 0.406],
+                                    std=[0.229, 0.224, 0.225]).cuda()
+
+    model = net
+
+    if modeltype == 'transformer':
+        target_layer = model.transformer.blocks[-1].norm1
+    else:
+        target_layer = model.cnn[7][-1]
+        reshape_transform = None
+
+    if visualisation == "AblationCAM":
+        cam = AblationCAM(model=model, target_layer=target_layer, use_cuda=True, reshape_transform=reshape_transform)
+    elif visualisation == "EigenCAM":
+        cam = EigenCAM(model=model, target_layer=target_layer, use_cuda=True, reshape_transform=reshape_transform)
+    elif visualisation == "EigenCAM":
+        cam = GradCAM(model=model, target_layer=target_layer, use_cuda=True, reshape_transform=reshape_transform)
+    else:
+        cam = ScoreCAM(model=model, target_layer=target_layer, use_cuda=True, reshape_transform=reshape_transform)
+
+    cam.batch_size = 64
+
+    # Uses smoothing with the cost of extra runtime
+    grayscale_cam = cam(input_tensor=input_tensor, target_category=0, aug_smooth=True, eigen_smooth=True)
+    # grayscale_cam = cam(input_tensor=input_tensor, target_category=0)
+
+    grayscale_cam = grayscale_cam[0, :]
+    visualization = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
+
+    return torch.Tensor(visualization)
+
 
 if __name__ == "__main__":
     print("GPU available: ", torch.cuda.is_available())
     print("Torch version: ", torch.__version__)
     print("Torchvision version: ", torchvision.__version__)
 
-    myattribute = "safety"  # don't forget to change modelpath as well!
-    premodeltype = "resnet"
-    modeltype = "rcnn"
-    batch_size = 32  # chose this according to resources
-    num_workers = 4
+    myattribute = "depressing"  # The attribute that the model has trained on
+    modeltype = "transformer"  # The model type, either transformer or cnn
+    premodeltype = "deit_small"  # The premodel type, either deit_small or resnet
+
     use_cuda = True
     cuda_id = 0
-    nImages = 100
-    descending = True
+    descending = True  # Descending will analyze the highest scoring images, ascending the lowest
+    save_images = True  # Save images will save the top 50 images, if false it will only make a plot
 
-    # modelpath = "models/rcnn_resnet_depressing_model_0.6417545180722891.pth"
-    # modelpath = "models/rcnn_resnet_wealthy_model_0.6502016129032258.pth"
-    modelpath = 'models/rcnn_resnet_safety_model_0.632892382413088.pth'
-    csvpath = "votes_clean.csv"
+    modelpath = "models/rcnn_resnet_wealthy_model_0.6502016129032258.pth"
+    csvpath = "votes/votes_clean.csv"
     datapath = "placepulse/"
 
-    main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda, cuda_id, modelpath, \
-         csvpath, datapath, nImages, descending)
+    visualisation_options = ["AblationCAM", "AttentionRollout", "AttentionGradRollout", "EigenCAM", "GradCam",
+                             "ScoreCAM"]
+    visualisation = visualisation_options[0]  # Choose a visualisation method from one of the options
+
+    if visualisation.startswith("Attention"):
+        sys.path.insert(0, "C:/Users/ruben/Downloads/vit-explain")  # Add path to your vit-explain repository
+        from vit_rollout import VITAttentionRollout
+        from vit_grad_rollout import VITAttentionGradRollout
+
+    main(myattribute, premodeltype, modeltype, use_cuda, cuda_id, modelpath,
+         csvpath, datapath, descending, save_images, visualisation)

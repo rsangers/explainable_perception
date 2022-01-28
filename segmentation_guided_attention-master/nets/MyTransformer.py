@@ -1,8 +1,5 @@
-import torchvision.models as models
 import torch.nn as nn
-import torch.optim as optim
 import torch
-import numpy as np
 
 
 class MyTransformer(nn.Module):
@@ -11,25 +8,26 @@ class MyTransformer(nn.Module):
         super(MyTransformer, self).__init__()
         self.transformer = model
 
-        x = torch.randn([3, 224, 224]).unsqueeze(0)
-        output_size = self.transformer(x).size()
-        self.dims = output_size[1] * 2
-        self.transformer_size = output_size
-
         self.transformer.head = nn.Linear(self.transformer.head.in_features, 1)
+        self.rank_fc_1 = nn.Linear(self.transformer.head.out_features, 4096)
+        self.rank_fc_out = nn.Linear(4096, 1)
+        self.relu = nn.ReLU()
+        self.drop = nn.Dropout(0.3)
 
     def forward(self, left_batch, right_batch=None):
         if right_batch is None:
-            return self.transformer(left_batch).unsqueeze(0).unsqueeze(0)
+            return self.single_forward(left_batch)['output'].unsqueeze(0).unsqueeze(0)
         else:
             return {
                 'left': self.single_forward(left_batch),
                 'right': self.single_forward(right_batch)
             }
 
-    def single_forward(self, image):
-        batch_size = image.size()[0]
-        x = self.transformer(image)
+    def single_forward(self, batch):
+        x = self.transformer(batch)
+
+        if isinstance(x, tuple):
+            x = x[0]
 
         return {
             'output': x

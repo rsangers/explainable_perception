@@ -18,6 +18,8 @@ from utils.ranking import compute_ranking_loss, compute_ranking_accuracy
 import matplotlib.pyplot as plt
 from PIL import Image
 
+import torch.nn.functional as F
+
 import importlib
 import pytorch_grad_cam
 importlib.reload(pytorch_grad_cam)
@@ -31,10 +33,10 @@ import cv2
 import torch
 import math
 
-def main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda, cuda_id, modelpath, csvpath, datapath, nImages, descending):
-    train_transforms, val_transforms = define_transforms(modeltype)
+def main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda, cuda_id, modelpath, csvpath, datapath, nImages, descending, save_images):
+    transform = define_transforms(modeltype)
 
-    data = PlacePulseDataset(csvpath, datapath, val_transforms, myattribute, return_ids=True)
+    data = PlacePulseDataset(csvpath, datapath, transform, myattribute, return_ids=True)
     print("Dataset size: ", len(data))
 
     if use_cuda:
@@ -43,13 +45,10 @@ def main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda
         device = torch.device("cpu")
 
     if modeltype == "rcnn" and premodeltype == "resnet":
-        import nets.rcnn as rcnn
+        import nets.MyCnn as rcnn
 
         net = rcnn.RCnn(models.resnet50, finetune=True)
-    elif modeltype == "transformer" and premodeltype == "deit_base":
-        import nets.MyTransformer as MyTransformer
-
-        net = MyTransformer.MyTransformer(torch.hub.load('facebookresearch/deit:main', 'deit_base_patch16_224', pretrained=True))
+        # net.rank_fc_1 = nn.Linear(8192, 4096)
     else:
         print("Model not available yet!")
 
@@ -65,87 +64,49 @@ def main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda
     # net.cnn[8]=nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     print("Generating XAI cam...")
-    nImages = 16
 
-    plotWidth = math.ceil(math.sqrt(nImages))
-    plotHeight = 1 + int((nImages - 1) / plotWidth)
 
-    fig2, ax2 = plt.subplots(plotHeight, plotWidth, sharex=True, sharey=True, figsize=(15, 15))
-    plt.subplots_adjust(wspace=0.1, hspace=0.2)
+    if not save_images:
+        nImages = 16
+        plotWidth = math.ceil(math.sqrt(nImages))
+        plotHeight = 1 + int((nImages - 1) / plotWidth)
+
+        fig2, ax2 = plt.subplots(plotHeight, plotWidth, sharex=True, sharey=True, figsize=(15, 15))
+        plt.subplots_adjust(wspace=0.1, hspace=0.2)
 
     for i in range(nImages):
-        xIndex = int(i / plotWidth)
-        yIndex = i % plotWidth
+        camImage = np.float32(showcam(sortedImages[i], net))
 
-        camImage = np.float32(showcam(sortedImages[i], net)) / 255
-        title = str(myattribute) + ": " + str(round(sortedRanks[i].item(), 2))
+        if save_images:
+            cv2.imwrite("images/img"+str(i)+".jpg", camImage)
+        else:
+            xIndex = int(i / plotWidth)
+            yIndex = i % plotWidth
 
-        ax2[xIndex, yIndex].imshow(camImage)
-        ax2[xIndex, yIndex].title.set_text(title)
+            camImage = camImage / 255
+            title = str(myattribute) + ": " + str(round(sortedRanks[i].item(), 2))
 
-    for i in range(plotWidth * plotHeight - nImages):
-        ax2[plotHeight - 1, plotWidth - 1 - i].axis('off')
+            ax2[xIndex, yIndex].imshow(camImage)
+            ax2[xIndex, yIndex].title.set_text(title)
 
-    plt.draw()
-    plt.show()
+
+    if not save_images:
+        for i in range(plotWidth * plotHeight - nImages):
+            ax2[plotHeight - 1, plotWidth - 1 - i].axis('off')
+
+        plt.draw()
+        plt.show()
 
 
 
 def define_transforms(modeltype):
-    if modeltype == "test":
-        from timm.data.constants import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
-
-        train_transforms = transforms.Compose([
-            transforms.Resize(256, interpolation=3),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize(IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD),
-        ])
-        val_transforms = transforms.Compose([
-            transforms.Resize(256, interpolation=3),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize(IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD),
-        ])
-    elif modeltype == "transformer":
-        train_transforms = transforms.Compose([
-            AdaptTransform(transforms.ToPILImage()),
-            AdaptTransform(transforms.Resize((224, 224))),
-            AdaptTransform(transforms.ToTensor())
-        ])
-        val_transforms = transforms.Compose([
-            AdaptTransform(transforms.ToPILImage()),
-            AdaptTransform(transforms.Resize((224, 224))),
-            AdaptTransform(transforms.ToTensor())
-        ])
-    elif modeltype not in ["segrank", 'sgrb', 'segattn']:
-        train_transforms = transforms.Compose([
+    if modeltype not in ["segrank", 'sgrb', 'segattn']:
+        transform = transforms.Compose([
             AdaptTransform(transforms.ToPILImage()),
             AdaptTransform(transforms.Resize((244, 244))),
             AdaptTransform(transforms.ToTensor())
         ])
-        val_transforms = transforms.Compose([
-            AdaptTransform(transforms.ToPILImage()),
-            AdaptTransform(transforms.Resize((244, 244))),
-            AdaptTransform(transforms.ToTensor())
-        ])
-        return_images = True
-    else:
-        IMG_MEAN = np.array((104.00698793, 116.66876762, 122.67891434), dtype=np.float32)
-        train_transforms = transforms.Compose([
-            AdaptTransform(seg_transforms.ToArray()),
-            AdaptTransform(seg_transforms.SubstractMean(IMG_MEAN)),
-            AdaptTransform(seg_transforms.Resize((244, 244))),
-            AdaptTransform(seg_transforms.ToTorchDims())
-        ])
-        val_transforms = transforms.Compose([
-            AdaptTransform(seg_transforms.ToArray()),
-            AdaptTransform(seg_transforms.SubstractMean(IMG_MEAN)),
-            AdaptTransform(seg_transforms.Resize((244, 244))),
-            AdaptTransform(seg_transforms.ToTorchDims())
-        ])
-        return_images = True
-    return train_transforms, val_transforms
+    return transform
 
 
 
@@ -165,8 +126,8 @@ def infer(data, net, nImages, device):
 
             label, attribute = torch.Tensor([label]).to(device).float(), torch.Tensor([attribute]).to(device)
 
-            forward_dict = net(input_left.to('cuda').reshape(1, 3, 224, 224),
-                               input_right.to('cuda').reshape(1, 3, 224, 224))
+            forward_dict = net(input_left.to('cuda').reshape(1, 3, 244, 244),
+                               input_right.to('cuda').reshape(1, 3, 244, 244))
             output_rank_left, output_rank_right = forward_dict['left']['output'], forward_dict['right']['output']
 
             idToRank[left_id] = output_rank_left
@@ -227,35 +188,20 @@ def preprocess_image(img: np.ndarray, mean=None, std=None) -> torch.Tensor:
     return preprocessing(img.copy()).unsqueeze(0)
 
 def showcam(imageTensor, net):
-    def reshape_transform(tensor, height=14, width=14):
-        result = tensor[:, 1:, :].reshape(tensor.size(0),
-                                          height, width, tensor.size(2))
-
-        # Bring the channels to the first dimension,
-        # like in CNNs.
-        result = result.transpose(2, 3).transpose(1, 2)
-        return result
-
     rgb_img = imageTensor.permute(1, 2, 0).numpy()
     input_tensor = preprocess_image(rgb_img, mean=[0.485, 0.456, 0.406],
                                     std=[0.229, 0.224, 0.225]).cuda()
     # model = net.cnn
     # target_layer = model[7][-1]
     model = net
-
-    #target_layer = model.cnn[7][-1]
-    target_layer = model.transformer.blocks[-1].norm1
+    target_layer = model.cnn[7][-1]
 
     # target_layer = model[8]
 
     # print(net.forward(input_tensor))
 
-    #cam = EigenCAM(model=model, target_layer=target_layer, use_cuda=True)
+    cam = EigenCAM(model=model, target_layer=target_layer, use_cuda=True)
     #cam = AblationCAM(model=model, target_layer=target_layer, use_cuda=True)
-    cam = GradCAM(model=model,
-                  target_layer=target_layer,
-                  use_cuda=False,
-                  reshape_transform=reshape_transform)
     cam.batch_size = 2
 
     # grayscale_cam = cam(input_tensor=input_tensor, target_category=0, aug_smooth=True, eigen_smooth=True)
@@ -275,21 +221,21 @@ if __name__ == "__main__":
     print("Torchvision version: ", torchvision.__version__)
 
     myattribute = "safety"  # don't forget to change modelpath as well!
-    premodeltype = "deit_base"
-    modeltype = "transformer"
+    premodeltype = "resnet"
+    modeltype = "rcnn"
     batch_size = 32  # chose this according to resources
     num_workers = 4
     use_cuda = True
     cuda_id = 0
     nImages = 100
-    descending = False
+    descending = True
+    save_images = True
 
     # modelpath = "models/rcnn_resnet_depressing_model_0.6417545180722891.pth"
     # modelpath = "models/rcnn_resnet_wealthy_model_0.6502016129032258.pth"
-    #modelpath = 'models/rcnn_resnet_safety_model_0.632892382413088.pth'
-    modelpath = 'models/transformer_deit_safety_model_0.6068826687116564.pth'
+    modelpath = 'models/rcnn_resnet_safety_model_0.632892382413088.pth'
     csvpath = "votes/votes_clean.csv"
     datapath = "placepulse/"
 
     main(myattribute, premodeltype, modeltype, batch_size, num_workers, use_cuda, cuda_id, modelpath, \
-         csvpath, datapath, nImages, descending)
+         csvpath, datapath, nImages, descending, save_images)

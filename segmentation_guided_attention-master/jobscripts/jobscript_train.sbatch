@@ -10,7 +10,7 @@
 #SBATCH --qos=long
 
 # The default run (wall-clock) time is 1 minute
-#SBATCH --time=24:00:00
+#SBATCH --time=36:00:00
 
 # The default number of parallel tasks per job is 1
 #SBATCH --ntasks=1
@@ -36,4 +36,4 @@ module load cuda/11.2 cudnn/11.2-8.1.1.33
 # Complex or heavy commands should be started with 'srun' (see 'man srun' for more information)
 # For example: srun python my_program.py
 # Use this simple command to check that your sbatch settings are working (verify the resources allocated in the usage statistics)
-srun python3 train.py --max_epochs 20 --batch_size 16 --cuda --model transformer --attribute safety --ft --premodel deit_base_distilled --dataset "/scratch/rsangers/placepulse"
+srun python3 train.py --max_epochs 20 --batch_size 16 --cuda --model rcnn --attribute safety --ft --premodel resnet --dataset "/scratch/rsangers/placepulse"
