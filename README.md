@@ -29,4 +29,5 @@ Pretrained models can be found in the `models/` directory. These can be evaluate
 
 ## References
 [1] Dubey, Abhimanyu, et al. "Deep learning the city: Quantifying urban perception at a global scale." European conference on computer vision. Springer, Cham, 2016.
+
 [2] Vidal, Andrés Cádiz. Deep Neural Network Models with Explainable Components for Urban Space Perception. Diss. Pontificia Universidad Catolica de Chile (Chile), 2021.
