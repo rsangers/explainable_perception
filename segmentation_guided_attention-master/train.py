@@ -99,7 +99,7 @@ if __name__ == '__main__':
     if args.model == "transformer":
         from nets.MyTransformer import MyTransformer as Net
     else:
-        from nets.MyCnn import RCnn as Net
+        from nets.MyCnn import MyCnn as Net
 
 
     # Define models available

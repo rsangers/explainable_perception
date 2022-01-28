@@ -5,8 +5,6 @@ placepulse/*
 .ipynb_checkpoints
 votes/votes.csv
 votes/votes_clean.csv
-model.pth
-models/*
 pyenv
 models
 placepulse.tar.xz

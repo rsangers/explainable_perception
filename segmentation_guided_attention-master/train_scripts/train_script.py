@@ -17,8 +17,6 @@ def train(device, net, dataloader, val_loader, args, logger, experiment):
         input_left, input_right, label = input_left.to(device), input_right.to(device), label.to(device)
         attribute = data['attribute'].to(device)
         label = label.float()
-
-        # zero the parameter gradients
         optimizer.zero_grad()
 
         # Forward the training sample
@@ -136,7 +134,7 @@ def train(device, net, dataloader, val_loader, args, logger, experiment):
                 'model': net
                 })
 
-    if (args.resume):
+    if args.resume:
         def start_epoch(engine):
             engine.state.epoch = args.epoch
         trainer.add_event_handler(Events.STARTED, start_epoch)
@@ -145,8 +143,11 @@ def train(device, net, dataloader, val_loader, args, logger, experiment):
     trainer.run(dataloader,max_epochs=args.max_epochs, seed=randint(1,15))
 
 if __name__ == '__main__':
-    net = SegRank(image_size=(244,244))
-    x = torch.randn([3,244,244]).unsqueeze(0)
-    y = torch.randn([3,244,244]).unsqueeze(0)
-    fwd =  net(x,y)
+    from nets.MyCnn import MyCnn
+    import torchvision.models as models
+
+    net = MyCnn(models.resnet50)
+    x = torch.randn([3, 244, 244]).unsqueeze(0)
+    y = torch.randn([3, 244, 244]).unsqueeze(0)
+    fwd = net(x, y)
     print(fwd)
