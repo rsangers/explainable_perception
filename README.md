@@ -1,4 +1,4 @@
-# Explainability of Deep Learning models for UrbanSpace Perception
+# Explainability of Deep Learning models for Urban Space Perception
 
 Python code for the paper: Explainability of Deep Learning models for Urban Space Perception.
 
