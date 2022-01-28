@@ -1,20 +1,15 @@
-# Segmentation guided attention
-Pytorch implementation for the paper: Reconciling explainability and performance in neural networks by means of semantic segmentation-guided feature attention:An application to urban space perception (unpublished).
+# Explainability of Deep Learning models for UrbanSpace Perception
 
-## Requirements
-
-Python >= 3.6.5 (only tested on that one)
-
-For more check `requirements.txt`
+Python code for the paper: Explainability of Deep Learning models for Urban Space Perception
 
 ## Setup and preprocessing
 
-First install dependencies
+This repository has been tested on Windows with Python 3.8.
 
+The dependencies can be installed using
 `pip install -r requirements.txt`
 
-Get the dataset and put all the images in a single `placepulse/` folder in the root directory. Also put the complete `votes.csv` file in the root directory.
-After that run the preprocessing scripts.
+This project uses the Place Pulse 2.0 dataset from Dubey et al. [1]. To use this dataset, place all images in a folder called `placepulse/` in the root directory, as well as the `votes.csv` file containing all voting data.
 
 ```bash
 python image_crop.py
@@ -34,3 +29,5 @@ For information on the different parameters run:
 python train.py -h
 ```
 
+## References
+[1] Dubey, Abhimanyu, et al. "Deep learning the city: Quantifying urban perception at a global scale." European conference on computer vision. Springer, Cham, 2016.
